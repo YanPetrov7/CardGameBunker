@@ -31,7 +31,10 @@ const choice = (arr, target) => {
 
 class Bunker {
     constructor(catastrophe, population, square, prossAndCons){
-
+        this.catastrophe = catastrophe[rand(catastrophe)];
+        this.population = population[rand(population)];
+        this.square = square[rand(square)];
+        this.prossAndCons = choice(rand(prossAndCons), prossAndCons); 
     }
 }
 
