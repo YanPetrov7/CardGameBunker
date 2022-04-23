@@ -19,6 +19,10 @@ const rand = arr => {
     return randNumber;
 }
 
+class Bunker {
+
+}
+
 class Person {
     constructor( gender, age, childfree, job, health, stageDisease ,phobia, hobby, firstFact, secondFact, backpack, actCard ){
         this.gender = gender[rand(gender)];
