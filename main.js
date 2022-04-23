@@ -19,9 +19,19 @@ const rand = arr => {
     return randNumber;
 }
 
+const choice = (arr, target) => {
+    let result = [];
+    for(let elem of arr){
+        if(!result.includes(target[elem])){
+            result.push(target[elem]);
+        }
+    }
+    return result;
+}
+
 class Bunker {
     constructor(catastrophe, population, square, prossAndCons){
-        
+
     }
 }
 
