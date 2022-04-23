@@ -20,7 +20,9 @@ const rand = arr => {
 }
 
 class Bunker {
-
+    constructor(catastrophe, population, square, prossAndCons){
+        
+    }
 }
 
 class Person {
