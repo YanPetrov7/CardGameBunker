@@ -29,12 +29,13 @@ const choice = (arr, target) => {
     return result;
 }
 
-const toArr = str => {
-    const arr = str.split(' ');
+const toArr = (str, separator) => {
+    const arr = str.split(separator);
     return arr;
 }
 
 const readFile = fs.readFileSync('text.txt', 'utf8');
+const arrText = toArr(readLine, '\n');
 
 class Bunker {
     constructor(catastrophe, population, square, prossAndCons){
