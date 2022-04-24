@@ -86,3 +86,8 @@ const age = [];
 const stageDisease = [];
 const population = [];
 const square = [];
+
+filler(age, 18, 70);
+filler(stageDisease, 20, 100);
+filler(population, 1, 20);
+filler(square, 100, 1000);
