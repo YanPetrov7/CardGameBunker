@@ -106,3 +106,7 @@ filler(square, 100, 1000);
 
 const amount = question('How many players will play today?')
 writePlayers(amount, players, 'What is player name?');
+
+for(let player of players){
+    
+}
