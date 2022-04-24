@@ -45,6 +45,13 @@ const question = str => {
     return readLine.question(`${str} ${LINE_SEPARATOR}`);
 }
 
+const writePlayers = (amount, arr, str) => {
+    for(let i = 0; i < amount;i++){
+        let elem = question(str);
+        arr.push(elem);
+    }
+}
+
 const readFile = fs.readFileSync('text.txt', 'utf8');
 const arrText = toArr(readLine, '\n');
 
