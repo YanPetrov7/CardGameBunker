@@ -29,6 +29,11 @@ const choice = (arr, target) => {
     return result;
 }
 
+const toArr = str => {
+    const arr = str.split(' ');
+    return arr;
+}
+
 class Bunker {
     constructor(catastrophe, population, square, prossAndCons){
         this.catastrophe = catastrophe[rand(catastrophe)];
