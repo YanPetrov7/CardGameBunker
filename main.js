@@ -40,6 +40,11 @@ const filler = (arr, n, m) => {
     }
 }
 
+const question = str => {
+    const LINE_SEPARATOR = '\n';
+    return readLine.question(`${str} ${LINE_SEPARATOR}`);
+}
+
 const readFile = fs.readFileSync('text.txt', 'utf8');
 const arrText = toArr(readLine, '\n');
 
@@ -91,3 +96,4 @@ filler(age, 18, 70);
 filler(stageDisease, 20, 100);
 filler(population, 1, 20);
 filler(square, 100, 1000);
+
