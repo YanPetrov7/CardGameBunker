@@ -54,3 +54,21 @@ class Person {
         this.actCard = actCard[rand(actCard)];
     }
 }
+
+const players = [];
+const gender = [];
+const childfree = [];
+const age = [];
+const job = [];
+const health = [];
+const stageDisease = [];
+const phobia = [];
+const hobby = [];
+const firstFact = [];
+const secondFact = [];
+const backpack = [];
+const catastrophe = [];
+const prossAndCons = [];
+const actCard = [];
+const population = [];
+const square = [];
