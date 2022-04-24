@@ -52,6 +52,17 @@ const writePlayers = (amount, arr, str) => {
     }
 }
 
+const popUsedElem = (arr, index) => {
+    const length = arr.length;
+    if(index == (length - 1)){
+        arr.splice(index,index);
+        return arr;
+    }
+    delete arr[index];
+    arr[index] = arr.pop();
+    return arr;
+}
+
 const readFile = fs.readFileSync('text.txt', 'utf8');
 const arrText = toArr(readLine, '\n');
 
@@ -110,4 +121,5 @@ writePlayers(amount, players, 'What is player name?');
 for(let player of players){
     let cards = new Person(gender, age, childfree, job, health, stageDisease, phobia, hobby, firstFact, secondFact, backpack, actCard);
     writeFile('texts', player, 'txt', cards);
+
 }
