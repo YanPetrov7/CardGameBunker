@@ -52,6 +52,17 @@ const writePlayers = (amount, arr, str) => {
     }
 }
 
+const toStrObj = obj => {
+    const str = JSON.stringify(obj);
+    return str
+    .replace(/,/g, '\n')
+    .replace('{', '')
+    .replace('}', '')
+    .replace(/"/g, '')
+    .replace(/_/g, ' ')
+    .replace(/:/g, ': ')
+}
+
 const writeFile = (folder, name, format, obj) => {
     fs.writeFileSync(`${folder}/${name}.${format}`, toStrObj(obj));
 }
