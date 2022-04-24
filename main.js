@@ -3,9 +3,6 @@
 const fs = require('fs');
 const readLine = require('readline-sync');
 
-const readFile = fs.readFileSync('text.txt', 'utf8');
-const arrText = readFile.split('\n');
-
 const rand = arr => {
     const length = arr.length;
     let randNumber = Math.floor(Math.random() * length);
@@ -29,8 +26,8 @@ const choice = (arr, target) => {
     return result;
 }
 
-const toArr = (str, separator) => {
-    const arr = str.split(separator);
+const toArr = (str) => {
+    const arr = str.split(' ');
     return arr;
 }
 
@@ -103,6 +100,9 @@ class Person {
         this.actCard = actCard[rand(actCard)];
     }
 }
+
+const readFile = fs.readFileSync('text.txt', 'utf8');
+const arrText = readFile.split('\n');
 
 const players = [];
 const gender = ['male','female'];
