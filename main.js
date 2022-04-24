@@ -109,4 +109,5 @@ writePlayers(amount, players, 'What is player name?');
 
 for(let player of players){
     let cards = new Person(gender, age, childfree, job, health, stageDisease, phobia, hobby, firstFact, secondFact, backpack, actCard);
+    writeFile('texts', player, 'txt', cards);
 }
