@@ -34,6 +34,12 @@ const toArr = (str, separator) => {
     return arr;
 }
 
+const filler = (arr, n, m) => {
+    for(let i = n; i <= m; i++){
+        arr.push(i);
+    }
+}
+
 const readFile = fs.readFileSync('text.txt', 'utf8');
 const arrText = toArr(readLine, '\n');
 
