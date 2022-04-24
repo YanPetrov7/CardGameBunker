@@ -97,3 +97,4 @@ filler(stageDisease, 20, 100);
 filler(population, 1, 20);
 filler(square, 100, 1000);
 
+const amount = question('How many players will play today?', '\n')
