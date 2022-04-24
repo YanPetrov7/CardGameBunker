@@ -64,8 +64,8 @@ class Person {
 }
 
 const players = [];
-const gender = [];
-const childfree = [];
+const gender = ['male','female'];
+const childfree = [true, false];
 const age = [];
 const job = [];
 const health = [];
