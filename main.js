@@ -34,6 +34,8 @@ const toArr = str => {
     return arr;
 }
 
+const readFile = fs.readFileSync('text.txt', 'utf8');
+
 class Bunker {
     constructor(catastrophe, population, square, prossAndCons){
         this.catastrophe = catastrophe[rand(catastrophe)];
