@@ -52,6 +52,10 @@ const writePlayers = (amount, arr, str) => {
     }
 }
 
+const writeFile = (folder, name, format, obj) => {
+    fs.writeFileSync(`${folder}/${name}.${format}`, toStrObj(obj));
+}
+
 const popUsedElem = (arr, index) => {
     const length = arr.length;
     if(index == (length - 1)){
@@ -62,9 +66,6 @@ const popUsedElem = (arr, index) => {
     arr[index] = arr.pop();
     return arr;
 }
-
-const readFile = fs.readFileSync('text.txt', 'utf8');
-const arrText = toArr(readLine, '\n');
 
 class Bunker {
     constructor(catastrophe, population, square, prossAndCons){
@@ -115,11 +116,10 @@ filler(stageDisease, 20, 100);
 filler(population, 1, 20);
 filler(square, 100, 1000);
 
-const amount = question('How many players will play today?')
+const amount = question('How many players will play today?');
 writePlayers(amount, players, 'What is player name?');
 
 for(let player of players){
     let cards = new Person(gender, age, childfree, job, health, stageDisease, phobia, hobby, firstFact, secondFact, backpack, actCard);
     writeFile('texts', player, 'txt', cards);
-
 }
