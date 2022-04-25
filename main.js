@@ -133,4 +133,13 @@ writePlayers(amount, players, 'What is player name?');
 for(let player of players){
     let cards = new Person(gender, age, childfree, job, health, stageDisease, phobia, hobby, firstFact, secondFact, backpack, actCard);
     writeFile('texts', player, 'txt', cards);
+
+    popUsedElem(job, job.indexOf(cards.gender));
+    popUsedElem(health, health.indexOf(cards.health));
+    popUsedElem(phobia, phobia.indexOf(cards.phobia));
+    popUsedElem(hobby, hobby.indexOf(cards.hobby));
+    popUsedElem(firstFact, firstFact.indexOf(cards.firstFact));
+    popUsedElem(secondFact, secondFact.indexOf(cards.secondFact));
+    popUsedElem(backpack, backpack.indexOf(cards.backpack));
+    popUsedElem(actCard, actCard.indexOf(cards.actCard));
 }
