@@ -141,6 +141,8 @@ filler(square, 100, 1000);
 const amount = question('How many players will play today?');
 writePlayers(amount, players, 'What is player name?');
 
+const bunker = new Bunker(catastrophe, population, square, prossAndCons);
+
 for(let player of players){
     let cards = new Person(gender, age, childfree, job, health, stageDisease, phobia, hobby, firstFact, secondFact, backpack, actCard);
     writeFile('texts', player, 'txt', cards);
