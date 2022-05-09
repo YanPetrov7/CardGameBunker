@@ -3,17 +3,21 @@
 const fs = require('fs');
 const readLine = require('readline-sync');
 
-const rand = arr => {
-	const length = arr.length;
-	let randNumber = Math.floor(Math.random() * length);
-	if(arr == prossAndCons){
-		let randNumbers = [];
-		for(let i = 0; i < arr.length; i++){
-			randNumbers[i] = Math.floor(Math.random() * length);
+const randomizer = num => {
+	return Math.floor(Math.random() * num);
+};
+
+const rand = (arr, size) => {
+		const LENGTH = arr.length;
+		if(size !== undefined){
+			const randNumbers = Array(size);
+			for(let i = 0; i <= size; i++){
+				randNumbers[i] = randomizer(LENGTH);
+			}
+			return randNumbers;
 		}
-		return randNumbers;
-	}
-	return randNumber;
+		const randNumber = randomizer(LENGTH);
+		return randNumber;
 };
 
 const choice = (arr, target) => {
@@ -27,7 +31,8 @@ const choice = (arr, target) => {
 };
 
 const toArr = (str) => {
-	const arr = str.split(' ');
+	const LINE_SEPARATOR = ' ';
+	const arr = str.split(LINE_SEPARATOR);
 	return arr;
 };
 
@@ -80,7 +85,7 @@ class Bunker {
 		this.catastrophe = catastrophe[rand(catastrophe)];
 		this.population = population[rand(population)];
 		this.square = square[rand(square)];
-		this.prossAndCons = choice(rand(prossAndCons), prossAndCons); 
+		this.prossAndCons = choice(rand(prossAndCons, 4), prossAndCons); 
 	}
 }
 
