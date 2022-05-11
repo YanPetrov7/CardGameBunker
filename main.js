@@ -36,10 +36,13 @@ const toArr = (str) => {
 	return arr;
 };
 
-const filler = (arr, n, m) => {
-	for(let i = n; i <= m; i++){
-		arr.push(i);
+const filler = (begin, end) => {
+	const AMOUNT_ELEMS = end - begin;
+	const arr = Array(AMOUNT_ELEMS);
+	for(let i = 0, j = begin; i <= AMOUNT_ELEMS, j <= end; i++, j++){
+		arr[i] = j;
 	}
+	return arr;
 };
 
 const question = str => {
@@ -58,7 +61,7 @@ const toStrObj = obj => {
 	const str = JSON.stringify(obj);
 	return str
 		.replace(/,/g, '\n')
-		.replace('{', '')
+		.replace('[', '')
 		.replace('}', '')
 		.replace(/"/g, '')
 		.replace(/_/g, ' ')
@@ -133,15 +136,10 @@ const backpack = toArr(arrText[5]);
 const catastrophe = toArr(arrText[6]);
 const prossAndCons = toArr(arrText[7]);
 const actCard = toArr(arrText[8]);
-const age = [];
-const stageDisease = [];
-const population = [];
-const square = [];
-
-filler(age, 18, 70);
-filler(stageDisease, 20, 100);
-filler(population, 1, 20);
-filler(square, 100, 1000);
+const age = filler(18, 70);;
+const stageDisease = filler(20, 100);
+const population = filler(1, 20);
+const square = filler(100, 1000);
 
 const amount = question('How many players will play today?');
 writePlayers(amount, players, 'What is player name?');
