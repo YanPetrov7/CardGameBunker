@@ -3,9 +3,7 @@
 const fs = require('fs');
 const readLine = require('readline-sync');
 
-const randomizer = num => {
-	return Math.floor(Math.random() * num);
-};
+const randomizer = num => Math.floor(Math.random() * num);
 
 const rand = (arr, size) => {
 		const LENGTH = arr.length;
