@@ -58,12 +58,8 @@ const writePlayers = (amount, arr, str) => {
 const toStrObj = obj => {
 	const str = JSON.stringify(obj);
 	return str
-		.replace(/,/g, '\n')
-		.replace('[', '')
-		.replace('}', '')
-		.replace(/"/g, '')
-		.replace(/_/g, ' ')
-		.replace(/:/g, ': ');
+		.replace(/["{}]/g, '')
+		.replace(/,/g, '\n');
 };
 
 const writeFile = (folder, name, format, obj) => {
