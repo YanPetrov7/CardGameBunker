@@ -7,9 +7,9 @@ const randomizer = num => Math.floor(Math.random() * num);
 
 const rand = (arr, size) => {
   const LENGTH = arr.length;
-  if (size !== undefined) {
+  if (size) {
     const randNumbers = Array(size);
-    for (let i = 0; i <= size; i++) {
+    for (let i = 0; i < size; i++) {
       randNumbers[i] = randomizer(LENGTH);
     }
     return randNumbers;
@@ -59,90 +59,125 @@ const toStrObj = obj => {
   const str = JSON.stringify(obj);
   return str
     .replace(/["{}]/g, '')
+    .replace(/[_]/g, ' ')
     .replace(/,/g, '\n');
+};
+
+const readFile = (path, separator) => {
+  const text = fs.readFileSync(path, 'utf-8');
+  if (separator) {
+    return text.split(separator);
+  }
+  return text;
 };
 
 const writeFile = (folder, name, format, obj) => {
   fs.writeFileSync(`${folder}/${name}.${format}`, toStrObj(obj));
 };
 
-const popUsedElem = (arr, index) => {
-  const length = arr.length;
-  if (index === (length - 1)) {
-    arr.splice(index, index);
-    return arr;
+const getValues = obj => Object.values(obj);
+
+const popUsedElem = (allValues, targetValues, exeptionLenght) => {
+  const arrs = getValues(allValues);
+  const targets = getValues(targetValues);
+  for (let i = 0; i < arrs.length; i++) {
+    const arr = arrs[i];
+    const length = arr.length;
+    if (length > exeptionLenght) {
+      const target = targets[i];
+      const index = arr.indexOf(target);
+      if (index === (length - 1)) {
+        arr.splice(index, index);
+      }
+      delete arr[index];
+      arr[index] = arr.pop();
+    }
   }
-  delete arr[index];
-  arr[index] = arr.pop();
-  return arr;
+};
+
+const useFuncArr = (func, arr) => {
+  const res = [];
+  for (const elem of arr) {
+    res.push(func(elem));
+  }
+  return res;
 };
 
 class Bunker {
-  constructor (catastrophe, population, square, prossAndCons) {
-    this.catastrophe = catastrophe[rand(catastrophe)];
-    this.population = population[rand(population)];
-    this.square = square[rand(square)];
-    this.prossAndCons = choice(rand(prossAndCons, 4), prossAndCons);
+  constructor (obj) {
+    this.catastrophe = obj.catastrophe[rand(obj.catastrophe)];
+    this.population = obj.population[rand(obj.population)] + '%';
+    this.square = obj.square[rand(obj.square)];
+    this.prossAndCons = choice(rand(obj.prossAndCons, prossAndConsSize), obj.prossAndCons);
   }
 };
 
 class Person {
-  constructor (gender, age, childfree, job, health, stageDisease, phobia, hobby, firstFact, secondFact, backpack, actCard) {
-    this.gender = gender[rand(gender)];
-    this.age = age[rand(age)];
-    this.childfree = childfree[rand(childfree)];
-    this.job = job[rand(job)];
-    this.health = health[rand(health)];
-    this.stageDisease = stageDisease[rand(stageDisease)] + '%';
-    this.phobia = phobia[rand(phobia)];
-    this.hobby = hobby[rand(hobby)];
-    this.firstFact = firstFact[rand(firstFact)];
-    this.secondFact = secondFact[rand(secondFact)];
-    this.backpack = backpack[rand(backpack)];
-    this.actCard = actCard[rand(actCard)];
-  }
-
-  usePopUsedElem () {
-    popUsedElem(job, job.indexOf(this.job));
-    popUsedElem(health, health.indexOf(this.health));
-    popUsedElem(phobia, phobia.indexOf(this.phobia));
-    popUsedElem(hobby, hobby.indexOf(this.hobby));
-    popUsedElem(firstFact, firstFact.indexOf(this.firstFact));
-    popUsedElem(secondFact, secondFact.indexOf(this.secondFact));
-    popUsedElem(backpack, backpack.indexOf(this.backpack));
-    popUsedElem(actCard, actCard.indexOf(this.actCard));
+  constructor (obj) {
+    this.gender = obj.gender[rand(obj.gender)];
+    this.age = obj.age[rand(obj.age)] + ' years';
+    this.childfree = obj.childfree[rand(obj.childfree)];
+    this.job = obj.job[rand(obj.job)];
+    this.health = obj.health[rand(obj.health)];
+    this.stageDisease = obj.stageDisease[rand(obj.stageDisease)] + '%';
+    this.phobia = obj.phobia[rand(obj.phobia)];
+    this.hobby = obj.hobby[rand(obj.hobby)];
+    this.firstFact = obj.firstFact[rand(obj.firstFact)];
+    this.secondFact = obj.secondFact[rand(obj.secondFact)];
+    this.backpack = obj.backpack[rand(obj.backpack)];
+    this.actCard = obj.actCard[rand(obj.actCard)];
   }
 };
 
-const readFile = fs.readFileSync('text.txt', 'utf8');
-const arrText = readFile.split('\n');
+const text = readFile('text.txt', '\n');
+const splitedText = useFuncArr(toArr, text);
+
+const fillerNumbers = [filler(18, 80), filler(10, 100), filler(1, 20), filler(100, 1000)];
+
+const [gender,
+  childfree,
+  job,
+  health,
+  phobia,
+  hobby,
+  firstFact,
+  secondFact,
+  backpack,
+  actCard,
+  catastrophe,
+  prossAndCons] = splitedText;
+
+const [age, stageDisease, population, square] = fillerNumbers;
+
+const featurs = {
+  gender,
+  age,
+  childfree,
+  job,
+  health,
+  stageDisease,
+  phobia,
+  hobby,
+  firstFact,
+  secondFact,
+  backpack,
+  actCard
+};
+
+const characters = { catastrophe, population, square, prossAndCons };
 
 const players = [];
-const gender = ['male', 'female'];
-const childfree = [true, false];
-const job = toArr(arrText[0]);
-const health = toArr(arrText[1]);
-const phobia = toArr(arrText[2]);
-const hobby = toArr(arrText[3]);
-const firstFact = toArr(arrText[4]);
-const secondFact = toArr(arrText[4]);
-const backpack = toArr(arrText[5]);
-const catastrophe = toArr(arrText[6]);
-const prossAndCons = toArr(arrText[7]);
-const actCard = toArr(arrText[8]);
-const age = filler(18, 70);
-const stageDisease = filler(20, 100);
-const population = filler(1, 20);
-const square = filler(100, 1000);
+const prossAndConsSize = characters.prossAndCons.length;
 
 const amount = question('How many players will play today?');
 writePlayers(amount, players, 'What is player name?');
 
-const bunker = new Bunker(catastrophe, population, square, prossAndCons);
+const bunker = new Bunker(characters);
 console.dir(bunker);
 
 for (const player of players) {
-  const cards = new Person(gender, age, childfree, job, health, stageDisease, phobia, hobby, firstFact, secondFact, backpack, actCard);
+  const cards = new Person(featurs);
+  console.log(Object.values(cards));
   writeFile('texts', player, 'txt', cards);
-  cards.usePopUsedElem();
+  popUsedElem(featurs, cards, amount);
 }
