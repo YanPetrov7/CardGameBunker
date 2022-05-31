@@ -3,18 +3,18 @@
 const fs = require('fs');
 const readLine = require('readline-sync');
 
-const randomizer = num => Math.floor(Math.random() * num);
+const randomizer = (num) => Math.floor(Math.random() * num);
 
 const rand = (arr, size) => {
-  const LENGTH = arr.length;
+  const length = arr.length;
   if (size) {
     const randNumbers = Array(size);
     for (let i = 0; i < size; i++) {
-      randNumbers[i] = randomizer(LENGTH);
+      randNumbers[i] = randomizer(length);
     }
     return randNumbers;
   }
-  const randNumber = randomizer(LENGTH);
+  const randNumber = randomizer(length);
   return randNumber;
 };
 
@@ -29,23 +29,23 @@ const choice = (arr, target) => {
 };
 
 const toArr = (str) => {
-  const LINE_SEPARATOR = ' ';
-  const arr = str.split(LINE_SEPARATOR);
+  const lineSeparator = ' ';
+  const arr = str.split(lineSeparator);
   return arr;
 };
 
 const filler = (begin, end) => {
-  const AMOUNT_ELEMS = end - begin;
-  const arr = Array(AMOUNT_ELEMS);
-  for (let i = 0, j = begin; i <= AMOUNT_ELEMS, j <= end; i++, j++) {
+  const amountElems = end - begin;
+  const arr = Array(amountElems);
+  for (let i = 0, j = begin; i <= amountElems, j <= end; i++, j++) {
     arr[i] = j;
   }
   return arr;
 };
 
 const question = str => {
-  const LINE_SEPARATOR = '\n';
-  return readLine.question(`${str} ${LINE_SEPARATOR}`);
+  const lineSeparator = '\n';
+  return readLine.question(`${str} ${lineSeparator}`);
 };
 
 const writePlayers = (amount, arr, str) => {
