@@ -43,7 +43,7 @@ const filler = (begin, end) => {
   return arr;
 };
 
-const question = str => {
+const question = (str) => {
   const lineSeparator = '\n';
   return readLine.question(`${str} ${lineSeparator}`);
 };
@@ -55,7 +55,7 @@ const writePlayers = (amount, arr, str) => {
   }
 };
 
-const toStrObj = obj => {
+const toStrObj = (obj) => {
   const str = JSON.stringify(obj);
   return str
     .replace(/["{}]/g, '')
@@ -75,7 +75,7 @@ const writeFile = (folder, name, format, obj) => {
   fs.writeFileSync(`${folder}/${name}.${format}`, toStrObj(obj));
 };
 
-const getValues = obj => Object.values(obj);
+const getValues = (obj) => Object.values(obj);
 
 const popUsedElem = (allValues, targetValues, exeptionLenght) => {
   const arrs = getValues(allValues);
@@ -93,14 +93,6 @@ const popUsedElem = (allValues, targetValues, exeptionLenght) => {
       arr[index] = arr.pop();
     }
   }
-};
-
-const useFuncArr = (func, arr) => {
-  const res = [];
-  for (const elem of arr) {
-    res.push(func(elem));
-  }
-  return res;
 };
 
 class Bunker {
@@ -130,7 +122,7 @@ class Person {
 };
 
 const text = readFile('text.txt', '\n');
-const splitedText = useFuncArr(toArr, text);
+const splitedText = text.map(elem => toArr(elem));
 
 const fillerNumbers = [filler(18, 80), filler(10, 100), filler(1, 20), filler(100, 1000)];
 
@@ -177,7 +169,7 @@ console.dir(bunker);
 
 for (const player of players) {
   const cards = new Person(featurs);
-  console.log(Object.values(cards));
   writeFile('texts', player, 'txt', cards);
   popUsedElem(featurs, cards, amount);
+  console.log(Object.values(cards));
 }
