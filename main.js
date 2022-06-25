@@ -1,12 +1,11 @@
 'use strict';
 
 const fs = require('fs');
-const { format } = require('path');
 const readLine = require('readline-sync');
 
 const randomizer = (num) => Math.floor(Math.random() * num);
 
-const rand = (arr, size) => {
+const random = (arr, size) => {
   const length = arr.length;
   if (size) {
     const randNumbers = Array(size);
@@ -106,32 +105,43 @@ const steal = (robber, victim, targetNum) => {
 
 const show = (victim, targetNum) => {
   const victimText = readFile('texts', 'txt', '\n', victim);
-  console.log(victimText[targetNum]);
-}
+  const victimCharacter = victimText[targetNum];
+  console.log(victimCharacter);
+};
+
+const reroll = (person, targetNum) => {
+  const featursKeys = Object.keys(featurs);
+  const featursValues = Object.values(featurs);
+  const arr = featursValues[targetNum];
+  const key = featursKeys[targetNum];
+  const personText = readFile('texts', 'txt', '\n', person);
+  personText[targetNum] = `${key}:${arr[random(arr)]}`;
+  writeFile('texts', person, 'txt', personText.toString());
+};
 
 class Bunker {
   constructor (obj) {
-    this.catastrophe = obj.catastrophe[rand(obj.catastrophe)];
-    this.population = obj.population[rand(obj.population)] + '%';
-    this.square = obj.square[rand(obj.square)];
-    this.prossAndCons = choice(rand(obj.prossAndCons, PROSS_AND_CONS_SIZE), obj.prossAndCons);
+    this.catastrophe = obj.catastrophe[random(obj.catastrophe)];
+    this.population = obj.population[random(obj.population)] + '%';
+    this.square = obj.square[random(obj.square)];
+    this.prossAndCons = choice(random(obj.prossAndCons, PROSS_AND_CONS_SIZE), obj.prossAndCons);
   }
 };
 
 class Person {
   constructor (obj) {
-    this.gender = obj.gender[rand(obj.gender)];
-    this.age = obj.age[rand(obj.age)] + ' years';
-    this.childfree = obj.childfree[rand(obj.childfree)];
-    this.job = obj.job[rand(obj.job)];
-    this.health = obj.health[rand(obj.health)];
-    this.stageDisease = obj.stageDisease[rand(obj.stageDisease)] + '%';
-    this.phobia = obj.phobia[rand(obj.phobia)];
-    this.hobby = obj.hobby[rand(obj.hobby)];
-    this.firstFact = obj.firstFact[rand(obj.firstFact)];
-    this.secondFact = obj.secondFact[rand(obj.secondFact)];
-    this.backpack = obj.backpack[rand(obj.backpack)];
-    this.actCard = obj.actCard[rand(obj.actCard)];
+    this.gender = obj.gender[random(obj.gender)];
+    this.age = obj.age[random(obj.age)] + ' years';
+    this.childfree = obj.childfree[random(obj.childfree)];
+    this.job = obj.job[random(obj.job)];
+    this.health = obj.health[random(obj.health)];
+    this.stageDisease = obj.stageDisease[random(obj.stageDisease)] + '%';
+    this.phobia = obj.phobia[random(obj.phobia)];
+    this.hobby = obj.hobby[random(obj.hobby)];
+    this.firstFact = obj.firstFact[random(obj.firstFact)];
+    this.secondFact = obj.secondFact[random(obj.secondFact)];
+    this.backpack = obj.backpack[random(obj.backpack)];
+    this.actCard = obj.actCard[random(obj.actCard)];
   }
 };
 
@@ -180,4 +190,4 @@ const characters = { catastrophe, population, square, prossAndCons };
 
 const PROSS_AND_CONS_SIZE = 4;
 
-module.exports = { createGame, steal, show };
+module.exports = { createGame, steal, show, reroll};

@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const readLine = require('readline');
-const { createGame, steal, show } = require('./main.js');
+const { createGame, steal, show, reroll } = require('./main.js');
 
 const rl = readLine.createInterface({
   input: process.stdin,
@@ -46,14 +46,20 @@ const commands = {
     async steal() {
       const robber = await question('Who want to steal: ');
       const victim = await question('From who: ');
-      const target = await question('Which character: ');
-      steal(robber, victim, target);
+      const targetNum = await question('Which character: ');
+      steal(robber, victim, targetNum);
       rl.prompt();
     },
     async show() {
       const victim = await question('Who\'s characteristic you want to show: ');
       const targetNum = await question('Which character: ');
       show(victim, targetNum);
+      rl.prompt();
+    },
+    async reroll() {
+      const person = await question('Who\'s characteristic you want to reroll: ');
+      const targetNum = await question('Which character: ');
+      reroll(person, targetNum);
       rl.prompt();
     },
     exit() {
