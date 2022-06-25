@@ -1,11 +1,8 @@
 'use strict';
 
 const fs = require('fs');
-const { setMaxListeners } = require('process');
 const readLine = require('readline');
-const { start } = require('repl');
-const { resourceLimits } = require('worker_threads');
-const { createGame } = require('./main.js');
+const { createGame, steal } = require('./main.js');
 
 const rl = readLine.createInterface({
   input: process.stdin,
@@ -21,12 +18,17 @@ rl.prompt();
 
 const commands = {
     help() {
-      const info = fs.readFileSync('info.txt', 'utf-8');
+      const help = fs.readFileSync('texts/help.txt', 'utf-8');
+      console.log(help);
+      rl.prompt();
+    },
+    info() {
+      const info = fs.readFileSync('README.md', 'utf-8');
       console.log(info);
       rl.prompt();
     },
     rules() {
-      const rules = fs.readFileSync('rules.txt', 'utf-8');
+      const rules = fs.readFileSync('texts/rules.txt', 'utf-8');
       console.log(rules);
       rl.prompt();
     },
@@ -39,6 +41,13 @@ const commands = {
         players.push(player);
       }
       createGame(amount, players);
+      rl.prompt();
+    },
+    async steal() {
+      const robber = await question('Who want to steal: \n');
+      const victim = await question('From who: \n');
+      const character = await question('Which character: \n');
+      steal(robber, victim, character);
       rl.prompt();
     },
     exit() {

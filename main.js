@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('fs');
+const { format } = require('path');
 const readLine = require('readline-sync');
 
 const randomizer = (num) => Math.floor(Math.random() * num);
@@ -51,8 +52,8 @@ const toStrObj = (obj, replaced) => {
     .replaceAll(replaced.toLineTranslator, '\n');
 };
 
-const readFile = (path, separator) => {
-  const text = fs.readFileSync(path, 'utf-8');
+const readFile = (folder, format, separator, name) => {
+  const text = fs.readFileSync(`${folder}/${name}.${format}`, 'utf-8');
   if (separator) {
     return text.split(separator);
   }
@@ -60,7 +61,7 @@ const readFile = (path, separator) => {
 };
 
 const writeFile = (folder, name, format, obj) => {
-  fs.writeFileSync(`${folder}/${name}.${format}`, toStrObj(obj, replaced));
+    fs.writeFileSync(`${folder}/${name}.${format}`, toStrObj(obj, replaced));
 };
 
 const getValues = (obj) => Object.values(obj);
@@ -93,6 +94,18 @@ const createGame = (amount, players) => {
   }
 };
 
+const steal = (robber, victim, numOfCharacter) => {
+  const people = [robber, victim];
+  const [robberText,
+     victimText] = people.map(person => readFile('texts', 'txt', '\n', person));
+  const robberCharacter = robberText[numOfCharacter];
+  const victimCharacter = victimText[numOfCharacter];
+  robberText[numOfCharacter] = victimCharacter;
+  victimText[numOfCharacter] = robberCharacter;
+  writeFile('texts', robber, 'txt', robberText);
+  writeFile('texts', victim, 'txt', victimText);
+};
+
 class Bunker {
   constructor (obj) {
     this.catastrophe = obj.catastrophe[rand(obj.catastrophe)];
@@ -119,7 +132,7 @@ class Person {
   }
 };
 
-const text = readFile('text.txt', '\n');
+const text = readFile('texts', 'txt', '\n', 'text');
 const splitedText = text.map(elem => toArr(elem));
 
 const fillerNumbers = [filler(18, 80), filler(10, 100), filler(1, 20), filler(100, 1000)];
@@ -164,4 +177,4 @@ const characters = { catastrophe, population, square, prossAndCons };
 
 const PROSS_AND_CONS_SIZE = 4;
 
-module.exports = { createGame };
+module.exports = { createGame, steal };

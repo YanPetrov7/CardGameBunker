@@ -8,7 +8,3 @@ Each player has two action cards, they could save your life in bunker or ruin li
 steal: cards which starts from word 'steal' give you an ability to exchange your card whith card of other player;
 show: cards which starts from word 'show' give you an ability to show characteristic of other player;
 reroll: card which starts from word 'reroll' give you an ability to change characteristic of all players in this game;
-
-
- 
- 
