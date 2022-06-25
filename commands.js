@@ -62,6 +62,9 @@ const commands = {
       reroll(person, targetNum);
       rl.prompt();
     },
+    clear() {
+      console.clear();
+    },
     exit() {
       process.exit();
     }
