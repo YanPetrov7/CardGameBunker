@@ -1,0 +1,4 @@
+help - a list of comands
+rules - game rules
+start - create a new game
+exit - quit from program

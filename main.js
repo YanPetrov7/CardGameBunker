@@ -43,24 +43,12 @@ const filler = (begin, end) => {
   return arr;
 };
 
-const question = (str) => {
-  const lineSeparator = '\n';
-  return readLine.question(`${str} ${lineSeparator}`);
-};
-
-const writePlayers = (amount, arr, str) => {
-  for (let i = 0; i < amount; i++) {
-    const elem = question(str);
-    arr.push(elem);
-  }
-};
-
-const toStrObj = (obj) => {
+const toStrObj = (obj, replaced) => {
   const str = JSON.stringify(obj);
   return str
-    .replace(/["{}]/g, '')
-    .replace(/[_]/g, ' ')
-    .replace(/,/g, '\n');
+    .replaceAll(replaced.toNothing, '')
+    .replaceAll(replaced.toSpace, ' ')
+    .replaceAll(replaced.toLineTranslator, '\n');
 };
 
 const readFile = (path, separator) => {
@@ -72,7 +60,7 @@ const readFile = (path, separator) => {
 };
 
 const writeFile = (folder, name, format, obj) => {
-  fs.writeFileSync(`${folder}/${name}.${format}`, toStrObj(obj));
+  fs.writeFileSync(`${folder}/${name}.${format}`, toStrObj(obj, replaced));
 };
 
 const getValues = (obj) => Object.values(obj);
@@ -95,12 +83,22 @@ const popUsedElem = (allValues, targetValues, exeptionLenght) => {
   }
 };
 
+const createGame = (amount, players) => {
+  const bunker = new Bunker(characters);
+  console.dir(bunker);
+  for (const player of players) {
+    const cards = new Person(featurs);
+    writeFile('texts', player, 'txt', cards);
+    popUsedElem(featurs, cards, amount);
+  }
+};
+
 class Bunker {
   constructor (obj) {
     this.catastrophe = obj.catastrophe[rand(obj.catastrophe)];
     this.population = obj.population[rand(obj.population)] + '%';
     this.square = obj.square[rand(obj.square)];
-    this.prossAndCons = choice(rand(obj.prossAndCons, prossAndConsSize), obj.prossAndCons);
+    this.prossAndCons = choice(rand(obj.prossAndCons, PROSS_AND_CONS_SIZE), obj.prossAndCons);
   }
 };
 
@@ -156,20 +154,14 @@ const featurs = {
   actCard
 };
 
+const replaced = {
+  toNothing: '"',
+  toSpace: '_',
+  toLineTranslator: ','
+};
+
 const characters = { catastrophe, population, square, prossAndCons };
 
-const players = [];
-const prossAndConsSize = characters.prossAndCons.length;
+const PROSS_AND_CONS_SIZE = 4;
 
-const amount = question('How many players will play today?');
-writePlayers(amount, players, 'What is player name?');
-
-const bunker = new Bunker(characters);
-console.dir(bunker);
-
-for (const player of players) {
-  const cards = new Person(featurs);
-  writeFile('texts', player, 'txt', cards);
-  popUsedElem(featurs, cards, amount);
-  console.log(Object.values(cards));
-}
+module.exports = { createGame };
