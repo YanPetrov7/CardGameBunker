@@ -64,11 +64,9 @@ const writeFile = (folder, name, format, obj) => {
     fs.writeFileSync(`${folder}/${name}.${format}`, toStrObj(obj, replaced));
 };
 
-const getValues = (obj) => Object.values(obj);
-
 const popUsedElem = (allValues, targetValues, exeptionLenght) => {
-  const arrs = getValues(allValues);
-  const targets = getValues(targetValues);
+  const arrs = Object.values(allValues);
+  const targets = Object.values(targetValues);
   for (let i = 0; i < arrs.length; i++) {
     const arr = arrs[i];
     const length = arr.length;
