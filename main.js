@@ -92,17 +92,22 @@ const createGame = (amount, players) => {
   }
 };
 
-const steal = (robber, victim, numOfCharacter) => {
+const steal = (robber, victim, targetNum) => {
   const people = [robber, victim];
   const [robberText,
      victimText] = people.map(person => readFile('texts', 'txt', '\n', person));
-  const robberCharacter = robberText[numOfCharacter];
-  const victimCharacter = victimText[numOfCharacter];
-  robberText[numOfCharacter] = victimCharacter;
-  victimText[numOfCharacter] = robberCharacter;
+  const robberCharacter = robberText[targetNum];
+  const victimCharacter = victimText[targetNum];
+  robberText[targetNum] = victimCharacter;
+  victimText[targetNum] = robberCharacter;
   writeFile('texts', robber, 'txt', robberText);
   writeFile('texts', victim, 'txt', victimText);
 };
+
+const show = (victim, targetNum) => {
+  const victimText = readFile('texts', 'txt', '\n', victim);
+  console.log(victimText[targetNum]);
+}
 
 class Bunker {
   constructor (obj) {
@@ -175,4 +180,4 @@ const characters = { catastrophe, population, square, prossAndCons };
 
 const PROSS_AND_CONS_SIZE = 4;
 
-module.exports = { createGame, steal };
+module.exports = { createGame, steal, show };

@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const readLine = require('readline');
-const { createGame, steal } = require('./main.js');
+const { createGame, steal, show } = require('./main.js');
 
 const rl = readLine.createInterface({
   input: process.stdin,
@@ -35,19 +35,25 @@ const commands = {
     async start() {
       console.log('Welcome to the card game Bunker!');
       const players = [];
-      const amount = await question('How many players will play: \n');
+      const amount = await question('How many players will play: ');
       for (let i = 0; i < amount; i++){
-        const player = await question('What is players name: \n');
+        const player = await question('What is players name: ');
         players.push(player);
       }
       createGame(amount, players);
       rl.prompt();
     },
     async steal() {
-      const robber = await question('Who want to steal: \n');
-      const victim = await question('From who: \n');
-      const character = await question('Which character: \n');
-      steal(robber, victim, character);
+      const robber = await question('Who want to steal: ');
+      const victim = await question('From who: ');
+      const target = await question('Which character: ');
+      steal(robber, victim, target);
+      rl.prompt();
+    },
+    async show() {
+      const victim = await question('Who\'s characteristic you want to show: ');
+      const targetNum = await question('Which character: ');
+      show(victim, targetNum);
       rl.prompt();
     },
     exit() {
