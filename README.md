@@ -45,8 +45,8 @@ You can also get some benefits for you, or ruin game for other players useing yo
 If you want to use an action card say 'Stop the game' and say which card do you use. Even when you got kicked, you have three secoonds to use an action card.
 
 Victory Conditions:
-1) have 25% of Bunker livers of man without childfree who could have a healthy child;
-2) have 25% of Bunker livers of women without childfree who could have a healthy child;
+1) have 25% of Bunker of man without childfree who could have a healthy child;
+2) have 25% of Bunker of women without childfree who could have a healthy child;
 3) have no people who goes against eachother. For exemple, one people have a fear of dogs, and the other one have dog with him;
 4) don't have any people who have some mental problems which can hurt you and don't have any people whith contagious illness.
 
