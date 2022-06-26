@@ -17,6 +17,21 @@ const random = (arr, size) => {
   return randNumber;
 };
 
+const randObjValues = (obj) => {
+  const values = Object.values(obj);
+  const keys = Object.keys(obj);
+  const length = keys.length;
+  const result = {};
+  for (let i = 0; i < length; i++) {
+    const value = values[i];
+    const key = keys[i];
+    if (key === 'prossAndCons') {
+      result[key] = choice(random(value, PROSS_AND_CONS_SIZE), value);
+    } else result[key] = value[random(value)];
+  }
+  return result;
+};
+
 const choice = (arr, target) => {
   const result = [];
   for (const elem of arr) {
@@ -33,13 +48,20 @@ const toArr = (str) => {
   return arr;
 };
 
-const filler = (begin, end) => {
-  const amountElems = end - begin;
-  const arr = Array(amountElems);
-  for (let i = 0, j = begin; i <= amountElems, j <= end; i++, j++) {
-    arr[i] = j;
+const filler = (limits) => {
+  const result = [];
+  for (const property in limits) {
+    const value = limits[property];
+    const begin = value[0];
+    const end = value[1];
+    const amountElems = end - begin;
+    const arr = [];
+    for (let i = 0, j = begin; i <= amountElems, j <= end; i++, j++) {
+      arr[i] = j;
+    }
+    result.push(arr);
   }
-  return arr;
+  return result;
 };
 
 const toStrObj = (obj, replaced) => {
@@ -81,10 +103,11 @@ const popUsedElem = (allValues, targetValues, exeptionLenght) => {
 };
 
 const createGame = (amount, players) => {
-  const bunker = new Bunker(characters);
+  const bunker = new Bunker(randObjValues(characters));
+  writeFile('texts/players', 'Bunker', 'txt', bunker);
   console.dir(bunker);
   for (const player of players) {
-    const cards = new Person(featurs);
+    const cards = new Person(randObjValues(featurs));
     writeFile('texts/players', player, 'txt', cards);
     popUsedElem(featurs, cards, amount);
   }
@@ -120,34 +143,41 @@ const reroll = (person, targetNum) => {
 
 class Bunker {
   constructor (obj) {
-    this.catastrophe = obj.catastrophe[random(obj.catastrophe)];
-    this.population = obj.population[random(obj.population)] + '%';
-    this.square = obj.square[random(obj.square)];
-    this.prossAndCons = choice(random(obj.prossAndCons, PROSS_AND_CONS_SIZE), obj.prossAndCons);
+    this.catastrophe = obj.catastrophe;
+    this.population = obj.population;
+    this.square = obj.square;
+    this.prossAndCons = obj.prossAndCons;
   }
 };
 
 class Person {
   constructor (obj) {
-    this.gender = obj.gender[random(obj.gender)];
-    this.age = obj.age[random(obj.age)] + ' years';
-    this.childfree = obj.childfree[random(obj.childfree)];
-    this.job = obj.job[random(obj.job)];
-    this.health = obj.health[random(obj.health)];
-    this.stageDisease = obj.stageDisease[random(obj.stageDisease)] + '%';
-    this.phobia = obj.phobia[random(obj.phobia)];
-    this.hobby = obj.hobby[random(obj.hobby)];
-    this.firstFact = obj.firstFact[random(obj.firstFact)];
-    this.secondFact = obj.secondFact[random(obj.secondFact)];
-    this.backpack = obj.backpack[random(obj.backpack)];
-    this.actCard = obj.actCard[random(obj.actCard)];
+    this.gender = obj.gender;
+    this.age = obj.age;
+    this.childfree = obj.childfree;
+    this.job = obj.job;
+    this.health = obj.health;
+    this.stageDisease = obj.stageDisease;
+    this.phobia = obj.phobia;
+    this.hobby = obj.hobby;
+    this.firstFact = obj.firstFact;
+    this.secondFact = obj.secondFact;
+    this.backpack = obj.backpack;
+    this.actCard = obj.actCard;
   }
 };
 
 const text = readFile('texts', 'txt', '\n', 'text');
-const splitedText = text.map(elem => toArr(elem));
+const splitedText = text.map(text => toArr(text));
 
-const fillerNumbers = [filler(18, 80), filler(10, 100), filler(1, 20), filler(100, 1000)];
+const numLimits = {
+  ageLimits: [18, 70],
+  stageDiseaseLimits: [10, 100],
+  populationLimits: [1, 20],
+  squareLimits: [100, 1000]
+};
+
+const fillerNumbers = filler(numLimits);
 
 const [gender,
   childfree,
