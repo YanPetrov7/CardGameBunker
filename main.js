@@ -86,7 +86,7 @@ const createGame = (amount, players) => {
   console.dir(bunker);
   for (const player of players) {
     const cards = new Person(featurs);
-    writeFile('texts', player, 'txt', cards);
+    writeFile('texts/players', player, 'txt', cards);
     popUsedElem(featurs, cards, amount);
   }
 };
@@ -94,17 +94,17 @@ const createGame = (amount, players) => {
 const steal = (robber, victim, targetNum) => {
   const people = [robber, victim];
   const [robberText,
-     victimText] = people.map(person => readFile('texts', 'txt', '\n', person));
+     victimText] = people.map(person => readFile('texts/players', 'txt', '\n', person));
   const robberCharacter = robberText[targetNum];
   const victimCharacter = victimText[targetNum];
   robberText[targetNum] = victimCharacter;
   victimText[targetNum] = robberCharacter;
-  writeFile('texts', robber, 'txt', robberText);
-  writeFile('texts', victim, 'txt', victimText);
+  writeFile('texts/players', robber, 'txt', robberText);
+  writeFile('texts/players', victim, 'txt', victimText);
 };
 
 const show = (victim, targetNum) => {
-  const victimText = readFile('texts', 'txt', '\n', victim);
+  const victimText = readFile('texts/players', 'txt', '\n', victim);
   const victimCharacter = victimText[targetNum];
   console.log(victimCharacter);
 };
@@ -114,9 +114,9 @@ const reroll = (person, targetNum) => {
   const featursValues = Object.values(featurs);
   const arr = featursValues[targetNum];
   const key = featursKeys[targetNum];
-  const personText = readFile('texts', 'txt', '\n', person);
+  const personText = readFile('texts/players', 'txt', '\n', person);
   personText[targetNum] = `${key}:${arr[random(arr)]}`;
-  writeFile('texts', person, 'txt', personText.toString());
+  writeFile('texts/players', person, 'txt', personText);
 };
 
 class Bunker {

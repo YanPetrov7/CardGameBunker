@@ -1,5 +1,24 @@
-help - a list of comands
-info - show info
-rules - game rules
-start - create a new game
-exit - quit from program
+Numbers of characters:
+
+0* gender;
+1* age;
+2* childfree;
+3* job;
+4* stage of deasise;
+5* hobby;
+6* health;
+7* phobia;
+8* first fact;
+9* second fact;
+10* backpack;
+11* action card;
+
+help - a list of comands;
+info - show info;
+rules - game rules;
+start - create a new game;
+steal - use of action card 'steal (characteristic)'. That give you an ability to steal characteristic of any player without permision. That will ask you for name of person who use that card, for name of people from who you want to take character and for number of character;
+show - use of action card 'show (characteristic)'. That give you an ability to show characteristic of any player without permision. That will ask you for name of person who's character you want to show and for number of character;
+reroll - use of action card 'reroll (characteristic)'. That give you an ability to reroll characteristic of any player without permision. That will ask you for name of person who's character you want to reroll and for number of character;
+clear - clean the termianl
+exit - quit from program. Don't forget, it will deleated files that were created in a prosess of a game.
