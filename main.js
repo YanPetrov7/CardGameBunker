@@ -1,7 +1,6 @@
 'use strict';
 
 const fs = require('fs');
-const readLine = require('readline-sync');
 
 const randomizer = (num) => Math.floor(Math.random() * num);
 
@@ -60,7 +59,7 @@ const readFile = (folder, format, separator, name) => {
 };
 
 const writeFile = (folder, name, format, obj) => {
-    fs.writeFileSync(`${folder}/${name}.${format}`, toStrObj(obj, replaced));
+  fs.writeFileSync(`${folder}/${name}.${format}`, toStrObj(obj, replaced));
 };
 
 const popUsedElem = (allValues, targetValues, exeptionLenght) => {
@@ -94,7 +93,7 @@ const createGame = (amount, players) => {
 const steal = (robber, victim, targetNum) => {
   const people = [robber, victim];
   const [robberText,
-     victimText] = people.map(person => readFile('texts/players', 'txt', '\n', person));
+    victimText] = people.map(person => readFile('texts/players', 'txt', '\n', person));
   const robberCharacter = robberText[targetNum];
   const victimCharacter = victimText[targetNum];
   robberText[targetNum] = victimCharacter;
@@ -190,4 +189,4 @@ const characters = { catastrophe, population, square, prossAndCons };
 
 const PROSS_AND_CONS_SIZE = 4;
 
-module.exports = { createGame, steal, show, reroll};
+module.exports = { createGame, steal, show, reroll };
