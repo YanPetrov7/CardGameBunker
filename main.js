@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('fs');
+const { Bunker, Person } = require('./classes.js');
 
 const randomizer = (num) => Math.floor(Math.random() * num);
 
@@ -139,32 +140,6 @@ const reroll = (person, targetNum) => {
   const personText = readFile('texts/players', 'txt', '\n', person);
   personText[targetNum] = `${key}:${arr[random(arr)]}`;
   writeFile('texts/players', person, 'txt', personText);
-};
-
-class Bunker {
-  constructor (obj) {
-    this.catastrophe = obj.catastrophe;
-    this.population = obj.population;
-    this.square = obj.square;
-    this.prossAndCons = obj.prossAndCons;
-  }
-};
-
-class Person {
-  constructor (obj) {
-    this.gender = obj.gender;
-    this.age = obj.age;
-    this.childfree = obj.childfree;
-    this.job = obj.job;
-    this.health = obj.health;
-    this.stageDisease = obj.stageDisease;
-    this.phobia = obj.phobia;
-    this.hobby = obj.hobby;
-    this.firstFact = obj.firstFact;
-    this.secondFact = obj.secondFact;
-    this.backpack = obj.backpack;
-    this.actCard = obj.actCard;
-  }
 };
 
 const text = readFile('texts', 'txt', '\n', 'text');
